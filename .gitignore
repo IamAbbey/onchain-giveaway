@@ -7,3 +7,24 @@ typechain
 #Hardhat files
 cache
 artifacts
+
+cache/
+artifacts/
+
+coverage*
+typechain/
+
+.vscode/*
+!.vscode/settings.json.default
+!.vscode/launch.json.default
+!.vscode/extensions.json.default
+
+node_modules/
+.env
+
+.yalc
+yalc.lock
+
+contractsInfo.json
+deployments/hardhat
+deployments/localhost

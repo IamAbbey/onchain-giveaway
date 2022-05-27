@@ -1,13 +1,34 @@
-const { network, ethers } = require("hardhat");
+const { network, deployments, ethers } = require("hardhat");
 
-currentBlockTimeStamp = async () => {
+const fundContractWithLink = async (
+  contractAddress,
+  account,
+  linkToken,
+  amount
+) => {
+  if (contractAddress) {
+    accounts = await ethers.getSigners(); // could also do with getNamedAccounts
+    account = account ?? accounts[0];
+    if (!linkToken) {
+      await deployments.fixture(["mocks"]);
+      linkToken = await ethers.getContract("LinkToken");
+    }
+    amount = amount ?? 1000000000000000000;
+
+    tx = linkToken.connect(account).transfer(contractAddress, amount);
+    console.log(`Funded ${contractAddress}`);
+    return tx;
+  }
+};
+
+const currentBlockTimeStamp = async () => {
   let blockNumBefore = await ethers.provider.getBlockNumber();
   let blockBefore = await ethers.provider.getBlock(blockNumBefore);
   let timestampBefore = blockBefore.timestamp;
   return timestampBefore;
 };
 
-advanceTime = (time) => {
+const advanceTime = (time) => {
   return new Promise((resolve, reject) => {
     web3.currentProvider.send(
       {
@@ -26,7 +47,7 @@ advanceTime = (time) => {
   });
 };
 
-advanceBlock = () => {
+const advanceBlock = () => {
   return new Promise((resolve, reject) => {
     web3.currentProvider.send(
       {
@@ -46,7 +67,7 @@ advanceBlock = () => {
   });
 };
 
-takeSnapshot = () => {
+const takeSnapshot = () => {
   return new Promise((resolve, reject) => {
     web3.currentProvider.send(
       {
@@ -64,7 +85,7 @@ takeSnapshot = () => {
   });
 };
 
-revertToSnapShot = (id) => {
+const revertToSnapShot = (id) => {
   return new Promise((resolve, reject) => {
     web3.currentProvider.send(
       {
@@ -83,7 +104,7 @@ revertToSnapShot = (id) => {
   });
 };
 
-advanceTimeAndBlock = async (time) => {
+const advanceTimeAndBlock = async (time) => {
   await advanceTime(time);
   await advanceBlock();
   return Promise.resolve(web3.eth.getBlock("latest"));
@@ -96,4 +117,5 @@ module.exports = {
   takeSnapshot,
   revertToSnapShot,
   currentBlockTimeStamp,
+  fundContractWithLink,
 };
