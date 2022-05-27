@@ -1,6 +1,9 @@
 {
   "4": {
-    "SweepStake.address": ["0xcbD2609352093E42769077b1c689bedc55d3cD60"],
+    "SweepStake.address": [
+      "0x72566D35E3e3D05B0852c359654babF1c3E0d277",
+      "0xcbD2609352093E42769077b1c689bedc55d3cD60"
+    ],
     "SSToken.address": ["0x0"]
   },
   "31337": {

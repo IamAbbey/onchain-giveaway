@@ -19,6 +19,7 @@ contract SweepStake is VRFConsumerBaseV2, KeeperCompatibleInterface {
         string title;
         bool isActive;
         address[] entrants;
+        address[] winners;
     }
 
     // SweepStake Variables
@@ -162,7 +163,8 @@ contract SweepStake is VRFConsumerBaseV2, KeeperCompatibleInterface {
                 title: _title,
                 numberOfEntrants: 0,
                 isActive: true,
-                entrants: new address[](0)
+                entrants: new address[](0),
+                winners: new address[](0)
             })
         );
     }
@@ -352,6 +354,7 @@ contract SweepStake is VRFConsumerBaseV2, KeeperCompatibleInterface {
             );
 
             if (success) {
+                s_sweepStakes[sweepStakeIndex].winners.push(winner);
                 emit SweepStakeTransferToWinnerSuccess(
                     winner,
                     dividend,

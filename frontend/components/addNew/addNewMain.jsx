@@ -108,7 +108,7 @@ function CreateSweepStakeForm(props) {
   const [formData, setFormData] = useState({
     title: "",
     selectedToken: "",
-    amount: 0,
+    amount: "0.0",
     maximumNoOfWinners: 1,
     startDate: dayjs(new Date()),
     endDate: dayjs(new Date()),
@@ -188,7 +188,9 @@ function CreateSweepStakeForm(props) {
       _maximumNoOfWinners: formData.maximumNoOfWinners,
       _startDateTime: formData.startDate.unix(),
       _endDateTime: formData.endDate.unix(),
-      _amount: formData.amount,
+      _amount: ethers.utils.parseUnits(
+        _.isEmpty(formData.amount) ? "0.0" : formData.amount
+      ),
       _title: formData.title,
       _token: formData.selectedToken,
     },
@@ -227,6 +229,21 @@ function CreateSweepStakeForm(props) {
 
   const onFormSubmit = (event) => {
     event.preventDefault();
+    if (
+      _.isEmpty(formData.title) ||
+      _.isEmpty(formData.selectedToken) ||
+      _.isEmpty(formData.amount) ||
+      _.isEmpty(formData.maximumNoOfWinners)
+    ) {
+      dispatch({
+        type: "error",
+        title: "Error",
+        message: "Invalid data detected",
+        position: "topR",
+        isClosing: false,
+      });
+      return;
+    }
     setCreatingIsLoading(true);
 
     approveERC20Tx();

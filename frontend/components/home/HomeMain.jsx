@@ -6,7 +6,7 @@ import { SweepStakeCard } from "../SweepStakeCard";
 import SingleTopCard from "./SingleTopCard";
 import { Button } from "web3uikit";
 import dayjs from "dayjs";
-import { ethers, BigNumber } from "ethers";
+import { ethers, BigNumber, utils } from "ethers";
 import { LoadingWidget } from "../LoadingWidget";
 
 export default function HomeMain() {
@@ -47,6 +47,7 @@ export default function HomeMain() {
 
   async function getAllSweepStakes() {
     const result = await getAllSweepStakesFn();
+    // console.log(result);
     if (result) {
       const temp = {
         sweepStake: result ? result.length : 0,
@@ -56,10 +57,13 @@ export default function HomeMain() {
       };
       result.forEach((sweepStake, index) => {
         temp.entrants += sweepStake.entrants.length;
-        temp.tokens += BigNumber.from(sweepStake.amount).toNumber();
+        temp.tokens += BigNumber.from(
+          utils.parseUnits(utils.formatEther(sweepStake.amount))
+        );
         temp.actives += sweepStake.isActive ? 1 : 0;
       });
-      console.log(temp);
+      temp.tokens = utils.formatUnits(temp.tokens);
+      // console.log(temp);
       setAllSweepStakes(result);
       setTopCardInfo({ ...temp });
     }

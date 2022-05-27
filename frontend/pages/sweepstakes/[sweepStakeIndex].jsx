@@ -211,7 +211,7 @@ function ListOfSweepStakeInformation(props) {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-24 mb-5">
           <div>
             <p className="text-lg font-semibold">Total Amount:</p>
-            <p>{` ${sweepStake.amount} ${
+            <p>{` ${utils.formatEther(sweepStake.amount)} ${
               tokenInfo ? tokenInfo.symbol : ""
             }`}</p>
           </div>
@@ -220,17 +220,23 @@ function ListOfSweepStakeInformation(props) {
             <p>{` ${sweepStake.entrants.length}`}</p>
           </div>
         </div>
-        <div className="">
-          <p className="text-lg font-semibold">CountDown:</p>
-          <p>
-            {dayjs.unix(sweepStake.startDateTime).isSameOrBefore(dayjs()) ? (
-              <Countdown
-                date={dayjs.unix(sweepStake.endDateTime).toDate()}
-              ></Countdown>
-            ) : (
-              <b>Yet to start</b>
-            )}
-          </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-24 mb-5">
+          <div>
+            <p className="text-lg font-semibold">CountDown:</p>
+            <p>
+              {dayjs.unix(sweepStake.startDateTime).isSameOrBefore(dayjs()) ? (
+                <Countdown
+                  date={dayjs.unix(sweepStake.endDateTime).toDate()}
+                ></Countdown>
+              ) : (
+                <b>Yet to start</b>
+              )}
+            </p>
+          </div>
+          <div>
+            <p className="text-lg font-semibold">Maximum No of Winners:</p>
+            <p>{` ${sweepStake.maximumNoOfWinners}`}</p>
+          </div>
         </div>
       </div>
     </>
@@ -240,11 +246,23 @@ function ListOfSweepStakeInformation(props) {
 function TableListForEntrants(props) {
   const { sweepStake, web3 } = props;
   // console.log(sweepStake.entrants, "sweepStake.entrants");
+  // const a = { ...sweepStake };
+  // a.entrants = [
+  //   "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+  //   "0x96915374ABeDD37F1D9f4e2339FB15B75773EbE0",
+  //   // "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92265",
+  // ];
+  // a.winners = ["0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"];
+
   const entrantTableRow = sweepStake.entrants.map((entrant, index) => {
     return [
       <Avatar key={`avatar-${index}`} isRounded size={36} theme="image" />,
       maskAddress(entrant),
-      <Tag key={`tag-${index}`} color="yellow" text="Pending" />,
+      sweepStake.winners.includes(utils.getAddress(entrant)) ? (
+        <Tag key={`tag-${index}`} color="green" text="Winner" />
+      ) : (
+        <Tag key={`tag-${index}`} color="yellow" text="Entrant" />
+      ),
       index,
       <Icon key={`icon-${index}`} fill="black" size={32} svg="more" />,
     ];
