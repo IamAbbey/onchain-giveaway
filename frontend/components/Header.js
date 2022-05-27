@@ -44,7 +44,7 @@ export default function Header() {
               </li>
             </ul>
           </div>
-          <a className="btn btn-ghost normal-case">D.Giveaway</a>
+          <a className="sm:text-2xl text-base">Giveaway DApp</a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal p-0">

@@ -21,11 +21,11 @@
     "ethereum-waffle": "^3.4.4",
     "ethers": "^5.6.5",
     "hardhat": "^2.9.3",
-    "hardhat-deploy": "^0.11.4",
-    "jest": "^28.0.3",
-    "solidity-coverage": "^0.7.21",
     "hardhat-contract-sizer": "^2.5.1",
-    "hardhat-gas-reporter": "^1.0.8"
+    "hardhat-deploy": "^0.11.4",
+    "hardhat-gas-reporter": "^1.0.8",
+    "jest": "^28.0.3",
+    "solidity-coverage": "^0.7.21"
   },
   "dependencies": {
     "@appliedblockchain/chainlink-contracts": "^0.0.4",

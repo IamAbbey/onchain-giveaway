@@ -1,1 +1,16 @@
-{"4":{"SweepStake.address":["0xcbD2609352093E42769077b1c689bedc55d3cD60"],"SSToken.address":["0x0"]},"31337":{"SweepStake.address":["0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9","0x610178dA211FEF7D417bC0e6FeD39F05609AD788"],"SSToken.address":["0x5FC8d32690cc91D4c39d9d3abcBD16989F875707","0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e"]}}
+{
+  "4": {
+    "SweepStake.address": ["0xcbD2609352093E42769077b1c689bedc55d3cD60"],
+    "SSToken.address": ["0x0"]
+  },
+  "31337": {
+    "SweepStake.address": [
+      "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+      "0x610178dA211FEF7D417bC0e6FeD39F05609AD788"
+    ],
+    "SSToken.address": [
+      "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+      "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e"
+    ]
+  }
+}

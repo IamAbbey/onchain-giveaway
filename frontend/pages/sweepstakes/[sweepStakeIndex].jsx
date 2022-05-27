@@ -242,11 +242,11 @@ function TableListForEntrants(props) {
   // console.log(sweepStake.entrants, "sweepStake.entrants");
   const entrantTableRow = sweepStake.entrants.map((entrant, index) => {
     return [
-      <Avatar isRounded size={36} theme="image" />,
+      <Avatar key={`avatar-${index}`} isRounded size={36} theme="image" />,
       maskAddress(entrant),
-      <Tag color="yellow" text="Pending" />,
+      <Tag key={`tag-${index}`} color="yellow" text="Pending" />,
       index,
-      <Icon fill="black" size={32} svg="more" />,
+      <Icon key={`icon-${index}`} fill="black" size={32} svg="more" />,
     ];
   });
   // console.log(entrantTableRow.length, "entrantTableRow");
@@ -258,9 +258,9 @@ function TableListForEntrants(props) {
         data={[...entrantTableRow]}
         header={[
           "",
-          <span>Address</span>,
-          <span>Status</span>,
-          <span>Entry Order</span>,
+          <span key={`address-header`}>Address</span>,
+          <span key={`status-header`}>Status</span>,
+          <span key={`order-header`}>Entry Order</span>,
           "",
         ]}
         maxPages={3}
